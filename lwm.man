@@ -51,8 +51,8 @@ In the default configuration, button 2 on the root window brings up a
 new shell.
 .PP
 A button 3 click on a window frame hides that window.  Pressing
-button 3 on the root window brings up a menu. The various items unhide
-the named hidden window.
+button 3 on the root window brings up a menu of all the hidden windows.
+Releasing the button while over an item will unhide the named window.
 .PP
 A button 3 click in the frame while Shift is held down pushes the window
 to the back, under any other windows. (Users with 4-button mice are
