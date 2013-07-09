@@ -1,5 +1,12 @@
 Change Log for "lwm"
 
+2013-07-09	jfc	York
+	Applied a couple of minor patches suggested by Jari Aalto, the
+	Debian package maintainer.
+
+	Released lwm-1.2.3.
+
+
 2009-11-24	jfc	York
 	Released lwm-1.2.2.
 
