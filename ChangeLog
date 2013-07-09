@@ -1,7 +1,38 @@
 Change Log for "lwm"
 
+2009-11-24	jfc	York
+	Released lwm-1.2.2.
+
+2009-11-20	jfc	York
+	Improved performance by only checking for pending X events when the
+	socket it ready for reading.
+
+	Fixed applyGravity() bug that caused frameless windows to be
+	mis-positioned.
+
+	Applied a workaround in destroy() to avoid error reports when closing
+	windows.
+
+2005-01-28	jfc	York
+
+	Applied a patch from Chris Reece that ensures that the popup
+	menu does not disappear off the bottom of the screen.
+
+2004-09-30	jfc	York
+
+	Fixed an issue with IRIX 6.5 and lwm, where the root menu could
+	not be used because motion events had coordinates with respect to
+	the popup, not the root. Fixed by explicitly using the root window
+	coordinates.
+
+	Released lwm-1.2.1.
+
+2004-09-28	jfc	York
+
+	Added missing -lSM to no_xmkmf_makefile.
+
 2003-12-09	jfc	York
- 
+
 	Fixed bug (reported by Matthew Wilcox) where windows with extremely
 	long names could cause the pop menu to be unusable. Fixed by
 	maintaining a separate, shortened name for the menu, if

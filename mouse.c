@@ -109,19 +109,23 @@ menuhit(XButtonEvent *e) {
 	getMenuDimensions(&width, &height, &length);
 	
 	/*
-	 * Arrange for centre of first menu item to be under pointer.
+	 * Arrange for centre of first menu item to be under pointer,
+	 * unless that would put the menu offscreen.
 	 */
 	start_x = e->x - width / 2;
 	start_y = e->y - height / 2;
 	
-	if (start_x < 0)
-		start_x = 0;
 	if (start_x + width > current_screen->display_width)
 		start_x = current_screen->display_width - width;
+	if (start_x < 0)
+		start_x = 0;
+	if (start_y + (height * length) > current_screen->display_height)
+		start_y = current_screen->display_height - (height * length);
 	if (start_y < 0)
 		start_y = 0;
+
 	
-	current_item = menu_whichitem(e->x, e->y);
+	current_item = menu_whichitem(e->x_root, e->y_root);
 	
 	XMoveResizeWindow(dpy, current_screen->popup, start_x, start_y,
 		width, length * height);
@@ -268,20 +272,16 @@ menu_expose(void) {
 
 void
 menu_motionnotify(XEvent* ev) {
-	int x, y;		/* Event position. */
 	int old;			/* Old menu position. */
 	int width;		/* Width of menu. */
 	int height;		/* Height of each menu item. */
 	int length;		/* Number of menu items. */
 	XButtonEvent *e = &ev->xbutton;
 	
-	x = e->x;
-	y = e->y;
-	
 	getMenuDimensions(&width, &height, &length);
 	
 	old = current_item;
-	current_item = menu_whichitem(x, y);
+	current_item = menu_whichitem(e->x_root, e->y_root);
 	
 	if (current_item == old) return;
 	
@@ -298,15 +298,12 @@ menu_motionnotify(XEvent* ev) {
 
 void
 menu_buttonrelease(XEvent *ev) {
-	int x,y;		/* Pointer position. */
 	int n;		/* Menu item. */
 
 	/*
 	 * Work out which menu item the button was released over.
 	 */
-	x = ev->xbutton.x;
-	y = ev->xbutton.y;
-	n = menu_whichitem(x, y);
+	n = menu_whichitem(ev->xbutton.x_root, ev->xbutton.y_root);
 
 	/* Hide the menu until it's needed again. */
 	XUnmapWindow(dpy, current_screen->popup);/*BUG?*/
