@@ -21,3 +21,5 @@ Makefile
 Makefile.bak
 lwm
 lwm._man
+
+mkdist.sh
