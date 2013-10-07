@@ -386,9 +386,10 @@ initScreen(int screen) {
 	char * display_string = DisplayString(dpy);
 	char * colon = strrchr(display_string, ':');
 	char * dot = strrchr(display_string, '.');
-	
+
 	/* Set the DISPLAY specification. */
 	if (colon) {
+	        dot = strrchr(colon, '.');
 		len = 9 + strlen(display_string) + ((dot == 0) ? 2 : 0) + 10;
 		screens[screen].display_spec = (char *) malloc(len);
 		sprintf(screens[screen].display_spec, "DISPLAY=%s", display_string);
