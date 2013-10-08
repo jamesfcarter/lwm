@@ -385,7 +385,7 @@ initScreen(int screen) {
 	int len;
 	char * display_string = DisplayString(dpy);
 	char * colon = strrchr(display_string, ':');
-	char * dot = strrchr(display_string, '.');
+	char * dot = NULL;
 
 	/* Set the DISPLAY specification. */
 	if (colon) {
