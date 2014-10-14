@@ -554,10 +554,15 @@ fix_stack(ScreenInfo *screen) {
 	}
 
 	/* raise fullscreens - they're always on top */
+	/* Misam Saki reports problems with this and believes fullscreens
+	 * should not be automatically raised. Let's try that...
+	 */
+	/*
 	for (c = client_head(); c; c = c->next) {
 		if (c->wstate.fullscreen == False) continue;
 		Client_Raise(c);
 	}
+	*/
 }
 
 
