@@ -31,7 +31,7 @@
 #include "ewmh.h"
 
 /*
- *    Dispatcher for main event loop.
+ *	Dispatcher for main event loop.
  */
 typedef struct Disp Disp;
 struct Disp {
@@ -670,6 +670,12 @@ property(XEvent * ev) {
 			cmapfocus(c);
 	} else if (e->atom == ewmh_atom[_NET_WM_STRUT]) {
 		ewmh_get_strut(c);
+	} else if (e->atom == ewmh_atom[_NET_WM_STATE]) {
+		// Received notice that client wants to change its state
+		//  update internal wstate tracking
+		ewmh_get_state(c);
+		// make changes requested
+		if (c->wstate.fullscreen == True) Client_EnterFullScreen(c);
 	}
 }
 
