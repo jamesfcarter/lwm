@@ -673,9 +673,11 @@ property(XEvent * ev) {
 	} else if (e->atom == ewmh_atom[_NET_WM_STATE]) {
 		// Received notice that client wants to change its state
 		//  update internal wstate tracking
+		Bool wasFullscreen = c->wstate.fullscreen;
 		ewmh_get_state(c);
-		// make changes requested
-		if (c->wstate.fullscreen == True) Client_EnterFullScreen(c);
+		// make any changes requested
+		if (c->wstate.fullscreen == True && wasFullscreen == False) Client_EnterFullScreen(c);
+		else if (c->wstate.fullscreen == False && wasFullscreen == True) Client_ExitFullScreen(c);
 	}
 }
 
