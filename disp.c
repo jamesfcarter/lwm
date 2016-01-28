@@ -1,6 +1,6 @@
 /*
  * lwm, a window manager for X11
- * Copyright (C) 1997-2003 Elliott Hughes, James Carter
+ * Copyright (C) 1997-2016 Elliott Hughes, James Carter
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

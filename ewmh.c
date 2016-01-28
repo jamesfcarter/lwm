@@ -1,6 +1,6 @@
 /*
  * lwm, a window manager for X11
- * Copyright (C) 1997-2003 Elliott Hughes, James Carter
+ * Copyright (C) 1997-2016 Elliott Hughes, James Carter
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -555,14 +555,15 @@ fix_stack(ScreenInfo *screen) {
 
 	/* raise fullscreens - they're always on top */
 	/* Misam Saki reports problems with this and believes fullscreens
-	 * should not be automatically raised. Let's try that...
+	 * should not be automatically raised.
+	 *
+	 * However if the code below is removed then the panel is raised above
+	 * fullscreens, which is not desirable.
 	 */
-	/*
 	for (c = client_head(); c; c = c->next) {
 		if (c->wstate.fullscreen == False) continue;
 		Client_Raise(c);
 	}
-	*/
 }
 
 
