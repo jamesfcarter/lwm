@@ -689,7 +689,7 @@ Client_EnterFullScreen(Client *c) {
 		c->size.width = fs.width =
 			c->screen->display_width + 2 * border;
 		c->size.height = fs.height =
-			c->screen->display_height + titleHeight() + 2 * border;
+			c->screen->display_height + 2 * border;
 		XConfigureWindow(dpy, c->parent,
 			CWX | CWY | CWWidth | CWHeight, &fs);
 
