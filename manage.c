@@ -493,21 +493,22 @@ getWindowName(Client *c) {
 	
 	was_nameless = (c->name == 0);
 	
-	if (ewmh_get_window_name(c) == False &&
-		XGetWindowProperty(dpy, c->window, _mozilla_url, 0L, 100L, False, AnyPropertyType, &actual_type, &format, &n, &extra, (unsigned char **) &name) == Success && name && *name != '\0' && n != 0) {
-		Client_Name(c, name, False);
-		XFree(name);
-	} else if (XGetWindowProperty(dpy, c->window, XA_WM_NAME, 0L, 100L, False, AnyPropertyType, &actual_type, &format, &n, &extra, (unsigned char **) &name) == Success && name && *name != '\0' && n != 0) {
-		/* That rather unpleasant condition is necessary because xwsh uses
-	 	* COMPOUND_TEXT rather than STRING for its WM_NAME property,
-	 	* and anonymous xwsh windows are annoying.
-	 	*/
-		if (actual_type == compound_text && memcmp(name, "\x1b\x28\x42", 3) == 0) {
-			Client_Name(c, name + 3, False);
-		} else {
+	if (ewmh_get_window_name(c) == False) {
+		if (XGetWindowProperty(dpy, c->window, _mozilla_url, 0L, 100L, False, AnyPropertyType, &actual_type, &format, &n, &extra, (unsigned char **) &name) == Success && name && *name != '\0' && n != 0) {
 			Client_Name(c, name, False);
+			XFree(name);
+		} else if (XGetWindowProperty(dpy, c->window, XA_WM_NAME, 0L, 100L, False, AnyPropertyType, &actual_type, &format, &n, &extra, (unsigned char **) &name) == Success && name && *name != '\0' && n != 0) {
+			/* That rather unpleasant condition is necessary because xwsh uses
+			* COMPOUND_TEXT rather than STRING for its WM_NAME property,
+			* and anonymous xwsh windows are annoying.
+			*/
+			if (actual_type == compound_text && memcmp(name, "\x1b\x28\x42", 3) == 0) {
+				Client_Name(c, name + 3, False);
+			} else {
+				Client_Name(c, name, False);
+			}
+			XFree(name);
 		}
-		XFree(name);
 	}
 	
 	if (!was_nameless)

@@ -87,6 +87,8 @@ main(int argc, char *argv[]) {
 
 	mode = wm_initialising;
 
+	setlocale(LC_ALL, "");
+
 	/* Open a connection to the X server. */
 	dpy = XOpenDisplay(NULL);
 	if (dpy == 0)
