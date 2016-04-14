@@ -70,7 +70,7 @@ exclusively by session managers.
 .SH RESOURCES
 \fILwm\fP understands the following X resources:
 .TP 12
-.B titlefont
+.B titleFont
 font used in window titles
 .TP 12
 .B popupFont
